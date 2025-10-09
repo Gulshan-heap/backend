@@ -10,3 +10,4 @@ class ApiResponse { // Declare a class named ApiResponse (ES6 class syntax)
     // to send the response — placeholder comment showing author intended a send method here (but no method is implemented)
 } // End of class ApiResponse
 
+export {ApiResponse}
