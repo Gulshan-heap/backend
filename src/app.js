@@ -29,8 +29,33 @@ app.use(express.static("public"));
 // Parse cookies from the client's request and make them available in req.cookies
 app.use(cookieParser());
 
+//we import routes and controllers in app.js file
+
+
+import userRouter from "./routes/user.routes.js"
+
+//routes declaration
+app.use("/api/v1/users",userRouter)
+
+//url will be- https://localhost/8000//api/v1/users/register
+
+
+
+
+
+
+
+
+
+
+
+
 // Export the configured Express app instance to be used in your server file (e.g., server.js or index.js)
 export { app };
 // This modular approach keeps the app configuration separate and clean.
 
 // Note: Actual route handlers and error handling middleware would be added in other files or later in this file.
+
+
+
+

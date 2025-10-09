@@ -31,19 +31,26 @@ const app=express()
 //other way
 import dotenv from "dotenv"
 import connectDB from "./db/index.js";
+import {app} from "./app.js";
 dotenv.config({
     path: './env'
 })
 
+// Try to connect to MongoDB, but don't let a failed connection crash the whole app.
 connectDB()
-.then(()=>{
-    app.listen(process.env.PORT ||8000,()=>{
-        console.log(`App is listening on port ${process.env.PORT ||8000}`);
+    .then(() => {
+        app.listen(process.env.PORT || 8000, () => {
+            console.log(`App is listening on port ${process.env.PORT || 8000}`);
+        });
     })
-})
-.catch((error)=>{
-    console.log("ERROR: MONGO DB connection failed");
-})
+    .catch((error) => {
+        console.warn("WARNING: MongoDB connection failed — starting server in degraded mode.");
+        console.warn(error && error.message ? error.message : error);
+        // Start server anyway so developers can continue working on non-DB features.
+        app.listen(process.env.PORT || 8000, () => {
+            console.log(`App (degraded) is listening on port ${process.env.PORT || 8000}`);
+        });
+    });
 
 /*  FIRST APPROACH
 import express from "express"
