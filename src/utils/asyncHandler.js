@@ -1,10 +1,16 @@
 const asyncHandler= (requestHandler)=>{
     return (req,res,next)=>{
-        Promise.resolve(requestHandler(req,res,next)).catch((err)=>{
+        Promise.resolve(requestHandler(req,res,next)).
+        then(()=>{
+            console.log("passed correctly")
+        }
+        )
+        .catch((err)=>{
             next(err);
         });
 
         //this will return a function which will handle the async errors
+        //next(err) passes that error to Express's error-handling pipeline or error handling middleware
     }
 
 }

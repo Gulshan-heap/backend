@@ -33,8 +33,16 @@ import dotenv from "dotenv"
 import connectDB from "./db/index.js";
 import {app} from "./app.js";
 dotenv.config({
-    path: './env'
+    path: './.env'
 })
+
+console.log("Mongo URI loaded:", Boolean(process.env.MONGODB_URI));
+console.log(
+    "Mongo URI scheme valid:",
+    /^(mongodb|mongodb\+srv):\/\//.test(
+        process.env.MONGODB_URI || ""
+    )
+);
 
 // Try to connect to MongoDB, but don't let a failed connection crash the whole app.
 connectDB()
